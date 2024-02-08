@@ -1,33 +1,27 @@
 $(document).ready(function () {
   console.log(
-    "Top: " + $("img").position().top + " Left: " + $("img").position().left
+    "Top: " + $("#dogePic").position().top + " Left: " + $("#dogePic").position().left
   );
 
-  // alert("Top: " + $("img").position().top + " Left: " + $("img").position().left);
-
-
-  $(document).ready(function() {
+  $(document).ready(function () {
     // Make the dogePic draggable within the containment-wrapper
-    $("#dogePic").draggable({ containment: "#containment-wrapper" });
+    $("#dogePic").draggable({
+      containment: "#containment-wrapper",
+      stop: function () {
+        // if img is far right side then user wins.
+        let dogeLeft = $("#dogePic").position().left;
+
+        if (dogeLeft > 300) {
+          console.log("we are above 300", dogeLeft);
+
+          $("p").text("you won. good for you.");
+
+          // Optionally, you can update the image source
+          // $("#dogePic").attr("src", "https://picsum.photos/200/300");
+        } else {
+          console.log("we are NOT above 300");
+        }
+      },
+    });
   });
-
-
-      // if( img is far right side  then ) user wins.
-
-      let dogeLeft = $("img").position().left;
-
-      if (dogeLeft > 300) {
-        console.log("we above 300", dogeLeft);
-
-        $("p").text("you won. good for you.");
-
-        $("img").attr("src", "https://picsum.photos/200/300");
-        // $("#my_image").attr("src","second.jpg");
-      } else {
-        console.log("we NOT above 500");
-      }
-    },
-  );
-
-  //TODO: if position is on the far rihgt side, tell user they won
-;
+});
